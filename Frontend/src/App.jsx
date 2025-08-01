@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"; // ✅ updated
 
 function App() {
   const [audioBlob, setAudioBlob] = useState(null);
@@ -14,7 +14,7 @@ function App() {
 
   const fetchHistory = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/history`);
+      const response = await axios.get(`${backendURL}/api/history`);
       setHistory(response.data);
     } catch (error) {
       console.error("Failed to fetch history:", error);
@@ -88,7 +88,7 @@ function App() {
     formData.append("audio", audioBlob);
 
     try {
-      const response = await axios.post(`${API_URL}/api/transcribe`, formData, {
+      const response = await axios.post(`${backendURL}/api/transcribe`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
